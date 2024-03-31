@@ -8,9 +8,4 @@ public class Wizard extends Character {
         super(name, coordinates);
         this.initiative = 1;
     }
-
-    @Override
-    public void step() {
-
-    }
 }

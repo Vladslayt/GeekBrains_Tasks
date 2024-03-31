@@ -1,5 +1,8 @@
 package base;
 
+import java.util.List;
+
 public interface Steppable {
-    void step();
+
+    void step(List<Character> enemies);
 }

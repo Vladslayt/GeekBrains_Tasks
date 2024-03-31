@@ -3,6 +3,10 @@ package personages;
 import base.Character;
 import base.Coordinates;
 
+import java.util.List;
+
+import static base.AnsiColors.ANSI_RED;
+
 public class Archer extends Character {
     int arrows;
 
@@ -12,33 +16,19 @@ public class Archer extends Character {
         this.initiative = 3;
     }
 
-    Archer findClosestEnemy(Archer[] enemies) {
-        Archer closestEnemy = null;
-        double minDistance = Double.MAX_VALUE;
-
-        for (Archer enemy : enemies) {
-            double distance = Coordinates.calculateDistance(this.coordinates, enemy.coordinates);
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestEnemy = enemy;
-            }
-        }
-
-        return closestEnemy;
-    }
-
     @Override
-    public void step() {
+    public void step(List<Character> enemies) {
         if (!isAlive || arrows <= 0) {
             return;
         }
 
-        Archer[] enemies = new Archer[10];
-        Archer closestEnemy = findClosestEnemy(enemies);
+        Character closestEnemy = findClosestEnemy(enemies);
 
         if (closestEnemy != null) {
             closestEnemy.isAlive = false;
             arrows--;
+            this.lastAction = ANSI_RED + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") убил " + closestEnemy.name + " на позиции (" + closestEnemy.coordinates.x + ", " + closestEnemy.coordinates.y + ")";
+
         }
     }
 }

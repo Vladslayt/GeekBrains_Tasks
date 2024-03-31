@@ -8,9 +8,4 @@ public class Pugilist extends Character {
         super(name, coordinates);
         this.initiative = 2;
     }
-
-    @Override
-    public void step() {
-
-    }
 }

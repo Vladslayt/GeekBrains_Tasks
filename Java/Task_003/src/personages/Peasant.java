@@ -8,9 +8,4 @@ public class Peasant extends Character {
         super(name, coordinates);
         this.initiative = 0;
     }
-
-    @Override
-    public void step() {
-
-    }
 }
