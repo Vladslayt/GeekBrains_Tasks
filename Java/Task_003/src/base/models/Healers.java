@@ -20,7 +20,7 @@ public class Healers extends Soldier {
     @Override
     public void step(List<Character> teammates, List<Character> enemies) {
         if (!isAlive) {
-            this.lastAction = ANSI_RESET + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") мертв";
+            this.lastAction = ANSI_RESET + this + "мертв";
             return;
         }
 
@@ -62,12 +62,12 @@ public class Healers extends Soldier {
         } else {
             this.coordinates.y += Integer.compare(dY, 0);
         }
-        this.lastAction = ANSI_WHITE + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") сделал ход в направлении раненного союзника";
+        this.lastAction = ANSI_WHITE + this + "сделал ход в направлении раненного союзника";
     }
 
     public void renaissanceClosestDeadTeammate(Character teammate) {
         teammate.setAlive(true);
-        this.lastAction = ANSI_CYAN + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") возродил " + teammate.getName() + " на позиции (" + teammate.getCoordinates().x + ", " + teammate.getCoordinates().y + ")";
+        this.lastAction = ANSI_CYAN + this + "возродил " + teammate;
     }
 
     public Character findClosestDeadTeammate(List<Character> team) {
@@ -87,11 +87,11 @@ public class Healers extends Soldier {
 
     public boolean healClosestNearestWoundedTeammate(Character teammate) {
         if(Coordinates.calculateDistance(this.coordinates, teammate.getCoordinates()) > this.range) {
-            this.lastAction = ANSI_BLACK + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") не достает до раненных тиммейтов";
+            this.lastAction = ANSI_BLACK + this + "не достает до раненных тиммейтов";
             return false;
         }
         teammate.setHealth(teammate.getHealth() + this.damage);
-        this.lastAction = ANSI_GREEN + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") вылечил " + this.damage + " единиц здоровья " + teammate.getName() + " на позиции (" + teammate.getCoordinates().x + ", " + teammate.getCoordinates().y + ")";
+        this.lastAction = ANSI_GREEN + this + "вылечил " + this.damage + " единиц здоровья " + teammate;
         return true;
     }
 
@@ -114,6 +114,6 @@ public class Healers extends Soldier {
 
     public void hoardMana(){
         this.mana += 10;
-        this.lastAction = ANSI_BLACK + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") пополнил ману на 10";
+        this.lastAction = ANSI_BLACK + this + "пополнил ману на 10";
     }
 }

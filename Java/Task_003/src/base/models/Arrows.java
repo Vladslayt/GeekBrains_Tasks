@@ -23,11 +23,11 @@ public class Arrows extends Character implements Steppable {
     @Override
     public void step(List<Character> teammate, List<Character> enemies) {
         if (!isAlive) {
-            this.lastAction = ANSI_RESET + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") мертв";
+            this.lastAction = ANSI_RESET + this + "мертв";
             return;
         }
         if(ammunition <= 0){
-            this.lastAction = ANSI_YELLOW + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") закончились боеприпасы!!!";
+            this.lastAction = ANSI_YELLOW + this + "закончились боеприпасы!!!";
             return;
         }
 
@@ -43,12 +43,12 @@ public class Arrows extends Character implements Steppable {
         } else {
             this.coordinates.y += Integer.compare(dY, 0);
         }
-        this.lastAction = ANSI_WHITE + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") сделал ход в направлении противника";
+        this.lastAction = ANSI_WHITE + this + "сделал ход в направлении противника";
     }
 
     public boolean damageClosestEnemy(Character enemy) {
         if(Coordinates.calculateDistance(this.coordinates, enemy.getCoordinates()) > this.range) {
-            this.lastAction = ANSI_BLACK + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") не достает до ближайших врагов";
+            this.lastAction = ANSI_BLACK + this + "не достает до ближайших врагов";
             return false;
         }
         this.ammunition--;
@@ -56,10 +56,10 @@ public class Arrows extends Character implements Steppable {
         if(enemy.getHealth() - this.damage < 1){
             enemy.setAlive(false);
             enemy.setHealth(enemy.getMaxHealth());
-            this.lastAction = ANSI_PURPLE + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") убил " + enemy.getName() + " на позиции (" + enemy.getCoordinates().x + ", " + enemy.getCoordinates().y + ")";
+            this.lastAction = ANSI_PURPLE + this + "убил " + enemy;
         } else {
             enemy.setHealth(enemy.getHealth() - this.damage);
-            this.lastAction = ANSI_RED + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") нанес " + this.damage + " урона " + enemy.getName() + " на позиции (" + enemy.getCoordinates().x + ", " + enemy.getCoordinates().y + ")";
+            this.lastAction = ANSI_RED + this + "нанес " + this.damage + " урона " + enemy;
         }
         return true;
     }

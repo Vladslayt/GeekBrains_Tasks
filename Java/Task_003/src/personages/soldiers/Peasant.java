@@ -28,19 +28,19 @@ public class Peasant extends Soldier {
     @Override
     public void step(List<Character> teammates, List<Character> enemies) {
         if (!isAlive) {
-            this.lastAction = ANSI_RESET + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") мертв";
+            this.lastAction = ANSI_RESET + this + "мертв";
             return;
         }
 
         List<Arrows> arrows = new ArrayList<>();
         for (Character hero: teammates){
-            if(hero instanceof Arrows)
-                arrows.add((Arrows) hero);
+            if(hero instanceof Arrows arrows1)
+                arrows.add(arrows1);
         }
 
         Arrows arrow = findClosestNeededAmmunitionTeammate(arrows);
         if(arrow == null){
-            this.lastAction = ANSI_YELLOW + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") пропустил ход";
+            this.lastAction = ANSI_YELLOW + this + "пропустил ход";
             return;
         }
 
@@ -55,16 +55,16 @@ public class Peasant extends Soldier {
         } else {
             this.coordinates.y += Integer.compare(dY, 0);
         }
-        this.lastAction = ANSI_WHITE + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") сделал ход в направлении раненного союзника";
+        this.lastAction = ANSI_WHITE + this + "сделал ход в направлении раненного союзника";
     }
 
     public boolean addAmmunitionForArrow(Arrows teammate) {
         if(Coordinates.calculateDistance(this.coordinates, teammate.getCoordinates()) > this.range) {
-            this.lastAction = ANSI_BLACK + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") не достает до тиммейтов с неполным боезапасом";
+            this.lastAction = ANSI_BLACK + this + "не достает до тиммейтов с неполным боезапасом";
             return false;
         }
         teammate.setAmmunition(teammate.getAmmunition() + this.damage);
-        this.lastAction = ANSI_BLUE + this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") пополнил боезапас на " + this.damage + " " + teammate.getName() + " на позиции (" + teammate.getCoordinates().x + ", " + teammate.getCoordinates().y + ")";
+        this.lastAction = ANSI_BLUE + this + "пополнил боезапас на " + this.damage + " " + teammate;
         return true;
     }
 

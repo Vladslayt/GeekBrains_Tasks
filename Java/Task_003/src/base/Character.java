@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import java.util.List;
 
+import static base.AnsiColors.ANSI_RESET;
+
 @Getter
 @Setter
 public abstract class Character implements Steppable {
@@ -51,5 +53,10 @@ public abstract class Character implements Steppable {
     }
     public void setAlive(boolean value){
         isAlive = value;
+    }
+
+    @Override
+    public String toString(){
+        return this.name + " на позиции (" + this.coordinates.x + ", " + this.coordinates.y + ") ";
     }
 }
